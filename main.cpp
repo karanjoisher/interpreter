@@ -61,7 +61,7 @@ struct Token
 };
 
 // NOTE(karan): This can be a hash map so that token can be matched quickly to a keyword
-char* g_keywords[] = 
+char* g_keywords[] =
 {
 	"let",
 	"return",
@@ -73,7 +73,7 @@ char* g_keywords[] =
 	"false"
 };
 
-char* g_token_type_strings[] = 
+char* g_token_type_strings[] =
 {
     "INVALID",
     "SEMICOLON",
@@ -291,24 +291,24 @@ int main()
 	ASSERT(num_tokens == LEN(g_token_type_strings), "There are %d tokens, but only %llu string representations of those tokens are defined", num_tokens, LEN(g_token_type_strings));
 	
 	char *test = R"FOO(
-let five = 5;
-let ten = 10;
-let add = fn(x, y) {
-x + y;
-};
-let result = add(five, ten);
-)FOO";
+            let five = 5;
+            let ten = 10;
+            let add = fn(x, y) {
+            x + y;
+            };
+            let result = add(five, ten);
+            )FOO";
 	
 	u64 index = 0;
 	Token result = {};
 	Token clear = {};
 	do{
 		result = clear;
-		get_token(test, &index, &result); 
+		get_token(test, &index, &result);
 		LOG("Token Type: %s", g_token_type_strings[result.type]);
 		if(result.len > 0) LOG(" = %.*s", (s32)result.len, test + result.start_index);
 		LOG("\n");
-	} while(result.type != TokenType_EOF); 
+	} while(result.type != TokenType_EOF);
 	
 	return 0;
 }
